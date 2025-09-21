@@ -1,10 +1,17 @@
-import { LetterBox } from "./letterBox";
+import { useState } from "react";
+import { LetterRow } from "./letterRow";
+import { addCleanupEventListener } from "../utils/eventListener";
 
 export function LetterGrid(props: any) {
+    const [letter, setLetter] = useState('')
+
+    addCleanupEventListener(window, "keydown", (e: KeyboardEvent) => {
+        setLetter(e.key)
+    })
     return (
-        <div className="mt-6 mx-auto grid grid-cols-5 gap-1.5">
-            {Array.from({ length: 30 }).map((_, index) =>
-                <LetterBox key={index} />
+        <div className="mt-6 mx-auto flex flex-col gap-1.5 my-0">
+            {Array.from({ length: 6 }).map((_, index) =>
+                <LetterRow key={index} letter={letter} />
             )}
         </div>
     )
