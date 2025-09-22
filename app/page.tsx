@@ -6,7 +6,7 @@ import { useState } from "react";
 import { addCleanupEventListener } from "./utils/eventListener";
 
 export default function Home() {
-  const answer = "HORSE"
+  const answer = "ROWAN"
 
   const [guessArr, setGuessArr]: any[] = useState([[], [], [], [], [], []])
 

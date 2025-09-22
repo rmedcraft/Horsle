@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Horsle",
+  title: "Rowandle",
   description: "Regular wordle with nothing wrong with it at all. Made by Rowan Medcraft",
 };
 
