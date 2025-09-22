@@ -3,6 +3,7 @@ import { Navbar } from "./components/navbar";
 import { LetterGrid } from "./components/letterGrid";
 import { Keyboard } from "./components/keyboard";
 import { useState } from "react";
+import { addCleanupEventListener } from "./utils/eventListener";
 
 export default function Home() {
   const answer = "HORSE"
@@ -16,11 +17,19 @@ export default function Home() {
   const [currentLetter, setCurrentLetter] = useState(0)
 
 
+  const [letter, setLetter] = useState('')
+
+  addCleanupEventListener(window, "keydown", (e: KeyboardEvent) => {
+    if (/^[A-Za-z]+$/.test(e.key) && e.key.length === 1) {
+      setLetter(e.key.toUpperCase())
+    }
+  })
+
   return (
     <div className="flex flex-col absolute top-0 w-screen h-screen">
       <Navbar />
-      <LetterGrid guessArr={guessArr} currentGuess={currentGuess} currentLetter={currentLetter} />
-      <Keyboard guessArr={guessArr} setCurrentGuess={setCurrentGuess} setCurrentLetter={setCurrentLetter} />
+      <LetterGrid letter={letter} guessArr={guessArr} currentGuess={currentGuess} currentLetter={currentLetter} />
+      <Keyboard setLetter={setLetter} guessArr={guessArr} setCurrentGuess={setCurrentGuess} setCurrentLetter={setCurrentLetter} />
     </div>
   );
 }

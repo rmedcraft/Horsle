@@ -3,11 +3,8 @@ import { LetterRow } from "./letterRow";
 import { addCleanupEventListener } from "../utils/eventListener";
 
 export function LetterGrid(props: any) {
-    const [letter, setLetter] = useState('')
+    const { letter } = props
 
-    addCleanupEventListener(window, "keydown", (e: KeyboardEvent) => {
-        setLetter(e.key)
-    })
     return (
         <div className="mt-6 mx-auto flex flex-col gap-1.5 my-0">
             {Array.from({ length: 6 }).map((_, index) =>
