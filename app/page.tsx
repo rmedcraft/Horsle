@@ -8,28 +8,32 @@ import { addCleanupEventListener } from "./utils/eventListener";
 export default function Home() {
   const answer = "ROWAN"
 
-  const [guessArr, setGuessArr]: any[] = useState([[], [], [], [], [], []])
-
-  // indicates which guess you're on. i.e if you guessed 2 words you'll be on guess 2
-  const [currentGuess, setCurrentGuess] = useState(0)
-
-  // indicates the current character you're on. i.e if you typed "ho" you're on letter 2
-  const [currentLetter, setCurrentLetter] = useState(0)
-
+  let row = 0
+  let col = 0
 
   const [letter, setLetter] = useState('')
 
+  const stateGrid = Array.from({ length: 6 }).map(() => Array.from({ length: 5 }).map(() => useState("")))
+
   addCleanupEventListener(window, "keydown", (e: KeyboardEvent) => {
-    if (/^[A-Za-z]+$/.test(e.key) && e.key.length === 1) {
-      setLetter(e.key.toUpperCase())
+    console.log(row, col)
+    if (/^[A-Za-z]+$/.test(e.key) && e.key.length === 1 && col < 5 && row < 6) {
+      stateGrid[row][col][1](e.key.toUpperCase())
+      col++
+    }
+    console.log(e.key)
+    if (e.key === "Backspace" && col > 0) {
+      col--
+      stateGrid[row][col][1]("")
     }
   })
+
 
   return (
     <div className="flex flex-col absolute top-0 w-screen h-screen">
       <Navbar />
-      <LetterGrid letter={letter} guessArr={guessArr} currentGuess={currentGuess} currentLetter={currentLetter} />
-      <Keyboard setLetter={setLetter} guessArr={guessArr} setCurrentGuess={setCurrentGuess} setCurrentLetter={setCurrentLetter} />
+      <LetterGrid letter={letter} row={row} col={col} stateGrid={stateGrid} />
+      <Keyboard setLetter={setLetter} />
     </div>
   );
 }
