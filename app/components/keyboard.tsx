@@ -3,7 +3,7 @@ import { LetterKey } from "./letterKey";
 import { BsBackspace } from "react-icons/bs";
 
 export function Keyboard(props: any) {
-    const { setLetter } = props
+    const { setLetter, stateGrid } = props
 
     const keyboardLetters = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"]
 
@@ -14,7 +14,7 @@ export function Keyboard(props: any) {
                     {index === 2 && <BigKey inner={<p className="text-xs font-bold">ENTER</p>} />}
 
                     {[...row].map((letter, rowIndex) =>
-                        <LetterKey key={letter} letter={letter} setLetter={setLetter} />
+                        <LetterKey key={letter} letter={letter} stateGrid={stateGrid} gridData={props.gridData} />
                     )}
 
                     {index === 2 && <BigKey inner={<BsBackspace className="text-lg" fontWeight='bold' />} />}
